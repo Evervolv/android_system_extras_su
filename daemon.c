@@ -347,6 +347,13 @@ static int daemon_accept(int fd) {
             code = -1;
         }
 
+        // Is the file descriptor actually open?
+        if (fcntl(fd, F_GETFD) == -1) {
+            if (errno != EBADF) {
+                goto error;
+            }
+        }
+
         // Pass the return code back to the client
         ALOGD("sending code");
         if (write(fd, &code, sizeof(int)) != sizeof(int)) {
@@ -354,6 +361,7 @@ static int daemon_accept(int fd) {
         }
 
         close(fd);
+error:
         ALOGD("child exited");
         return code;
     }
