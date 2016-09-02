@@ -877,7 +877,7 @@ int su_main(int argc, char *argv[], int need_client) {
     }
 
     socket_serv_fd = socket_create_temp(ctx.sock_path, sizeof(ctx.sock_path));
-    ALOGD(ctx.sock_path);
+    ALOGD("%s", ctx.sock_path);
     if (socket_serv_fd < 0) {
         deny(&ctx);
     }
