@@ -1,6 +1,8 @@
 LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
+SQLITE_PATH := external/sqlite
+
 LOCAL_MODULE := su
 
 LOCAL_SRC_FILES := \
@@ -10,10 +12,10 @@ LOCAL_SRC_FILES := \
 	activity.c \
 	db.c \
 	utils.c \
-	../sqlite/dist/sqlite3.c
+	../../../$(SQLITE_PATH)/dist/sqlite3.c
 
 LOCAL_C_INCLUDES := \
-	external/sqlite/dist
+	$(SQLITE_PATH)/dist
 
 LOCAL_STATIC_LIBRARIES := \
 	libc \
