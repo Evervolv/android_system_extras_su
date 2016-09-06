@@ -31,6 +31,8 @@ LOCAL_CFLAGS += -DSUPERUSER_EMBEDDED
 LOCAL_CFLAGS += -DREQUESTOR=\"com.evervolv.toolbox\"
 LOCAL_CFLAGS += -DREQUESTOR_PREFIX=\"com.evervolv.toolbox.superuser\"
 
+LOCAL_INIT_RC := superuser.rc
+
 include $(BUILD_EXECUTABLE)
 
 SYMLINKS := $(addprefix $(TARGET_OUT)/bin/,su)
