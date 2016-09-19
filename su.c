@@ -15,6 +15,7 @@
 ** limitations under the License.
 */
 
+#include <sys/endian.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <sys/uio.h>
@@ -846,7 +847,7 @@ int su_main(int argc, char *argv[], int need_client) {
 
     int ret = mkdir(REQUESTOR_CACHE_PATH, 0770);
     if (chown(REQUESTOR_CACHE_PATH, st.st_uid, st.st_gid)) {
-        PLOGE("chown (%s, %ld, %ld)", REQUESTOR_CACHE_PATH, st.st_uid, st.st_gid);
+        PLOGE("chown (%s, %u, %u)", REQUESTOR_CACHE_PATH, st.st_uid, st.st_gid);
         deny(&ctx);
     }
 
@@ -855,11 +856,11 @@ int su_main(int argc, char *argv[], int need_client) {
         deny(&ctx);
     }
     if (setegid(st.st_gid)) {
-        PLOGE("setegid (%lu)", st.st_gid);
+        PLOGE("setegid (%u)", st.st_gid);
         deny(&ctx);
     }
     if (seteuid(st.st_uid)) {
-        PLOGE("seteuid (%lu)", st.st_uid);
+        PLOGE("seteuid (%u)", st.st_uid);
         deny(&ctx);
     }
 
