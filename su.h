@@ -30,7 +30,7 @@
 #define CM_ROOT_ACCESS_APPS_AND_ADB  3
 
 // DO NOT CHANGE LINE BELOW, java package name will always be the same
-#define JAVA_PACKAGE_NAME "com.koushikdutta.superuser"
+#define JAVA_PACKAGE_NAME "com.evervolv.sudo"
 
 // If --rename-manifest-package is used in AAPT, this
 // must be changed to correspond to the new APK package name
@@ -41,7 +41,7 @@
 // This is used if wrapping the fragment classes and activities
 // with classes in another package. CM requirement.
 #ifndef REQUESTOR_PREFIX
-#define REQUESTOR_PREFIX JAVA_PACKAGE_NAME
+#define REQUESTOR_PREFIX JAVA_PACKAGE_NAME ".app"
 #endif
 #define REQUESTOR_DATA_PATH "/data/data/"
 #define REQUESTOR_FILES_PATH REQUESTOR_DATA_PATH REQUESTOR "/files"

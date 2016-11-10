@@ -227,9 +227,12 @@ static void populate_environment(const struct su_context *ctx) {
             setenv("SHELL", ctx->to.shell, 1);
         else
             setenv("SHELL", DEFAULT_SHELL, 1);
-        if (ctx->to.login || ctx->to.uid) {
+        if (pw && (ctx->to.login || ctx->to.uid)) {
             setenv("USER", pw->pw_name, 1);
             setenv("LOGNAME", pw->pw_name, 1);
+        } else {
+            unsetenv("LOGNAME");
+            unsetenv("USER");
         }
     }
 }
@@ -526,16 +529,13 @@ static __attribute__ ((noreturn)) void allow(struct su_context *ctx) {
  * Find the properties ourselves.
  */
 int access_disabled(const struct su_initiator *from) {
-#ifndef SUPERUSER_EMBEDDED
-    return 0;
-#else
     char *data;
     char build_type[PROPERTY_VALUE_MAX];
     char debuggable[PROPERTY_VALUE_MAX], enabled[PROPERTY_VALUE_MAX];
     size_t len;
 
     data = read_file("/system/build.prop");
-    if (check_property(data, "ro.cm.version")) {
+    if (check_property(data, "ro.evervolv.version")) {
         get_property(data, build_type, "ro.build.type", "");
         free(data);
 
@@ -578,7 +578,6 @@ int access_disabled(const struct su_initiator *from) {
 
     }
     return 0;
-#endif
 }
 
 static void fork_for_samsung(void)
@@ -845,7 +844,11 @@ int su_main(int argc, char *argv[], int need_client) {
 
     ctx.umask = umask(027);
 
-    int ret = mkdir(REQUESTOR_CACHE_PATH, 0770);
+    if (mkdir(REQUESTOR_CACHE_PATH, 0770)) {
+        PLOGE("mkdir (%s)", REQUESTOR_CACHE_PATH);
+        deny(&ctx);
+    }
+
     if (chown(REQUESTOR_CACHE_PATH, st.st_uid, st.st_gid)) {
         PLOGE("chown (%s, %u, %u)", REQUESTOR_CACHE_PATH, st.st_uid, st.st_gid);
         deny(&ctx);

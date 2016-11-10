@@ -1,6 +1,8 @@
 # su daemon
 service su_daemon /system/xbin/su --daemon
-    class main
+    user root
+    group root
+    disabled
     seclabel u:r:sudaemon:s0
 
 on property:persist.sys.root_access=0
@@ -16,7 +18,7 @@ on property:persist.sys.root_access=3
     start su_daemon
 
 on property:init.svc.su_daemon=running
-    mkdir /dev/com.evervolv.toolbox.daemon 0755 root root
-    restorecon_recursive /dev/com.evervolv.toolbox.daemon
-    mkdir /dev/com.evervolv.toolbox 0755 root root
-    restorecon_recursive /dev/com.evervolv.toolbox
+    mkdir /dev/com.evervolv.superuser.daemon 0755 root root
+    restorecon_recursive /dev/com.evervolv.superuser.daemon
+    mkdir /dev/com.evervolv.superuser 0755 root root
+    restorecon_recursive /dev/com.evervolv.superuser

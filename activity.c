@@ -168,7 +168,6 @@ int send_request(struct su_context *ctx) {
     char user[64];
     int needs_owner_login_prompt = get_owner_login_user_args(ctx, user, sizeof(user));
 
-    int ret;
     if (needs_owner_login_prompt) {
         char uid[256];
         sprintf(uid, "%d", ctx->from.uid);

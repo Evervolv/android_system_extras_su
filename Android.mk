@@ -1,4 +1,5 @@
 LOCAL_PATH := $(call my-dir)
+
 include $(CLEAR_VARS)
 
 SQLITE_PATH := external/sqlite
@@ -17,20 +18,15 @@ LOCAL_SRC_FILES := \
 LOCAL_C_INCLUDES := \
 	$(SQLITE_PATH)/dist
 
-LOCAL_STATIC_LIBRARIES := \
-	libc \
+LOCAL_SHARED_LIBRARIES := \
 	libcutils \
 	liblog
 
 LOCAL_MODULE_PATH := $(TARGET_OUT_OPTIONAL_EXECUTABLES)
-LOCAL_MODULE_TAGS := eng debug
-LOCAL_FORCE_STATIC_EXECUTABLE := true
+LOCAL_MODULE_TAGS := debug optional
 
-LOCAL_CFLAGS := -DSQLITE_OMIT_LOAD_EXTENSION
-LOCAL_CFLAGS += -DSUPERUSER_EMBEDDED
-LOCAL_CFLAGS += -DREQUESTOR=\"com.evervolv.toolbox\"
-LOCAL_CFLAGS += -DREQUESTOR_PREFIX=\"com.evervolv.toolbox.superuser\"
-LOCAL_CFLAGS += -Werror
+LOCAL_CFLAGS := -std=c11 -Werror
+LOCAL_CFLAGS += -DSQLITE_OMIT_LOAD_EXTENSION
 
 LOCAL_INIT_RC := superuser.rc
 
