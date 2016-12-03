@@ -18,7 +18,7 @@ on property:persist.sys.root_access=3
     start su_daemon
 
 on property:init.svc.su_daemon=running
-    mkdir /dev/com.evervolv.superuser.daemon 0755 root root
-    restorecon_recursive /dev/com.evervolv.superuser.daemon
-    mkdir /dev/com.evervolv.superuser 0755 root root
-    restorecon_recursive /dev/com.evervolv.superuser
+    mkdir /dev/com.evervolv.sudo.daemon 0755 root root
+    restorecon_recursive /dev/com.evervolv.sudo.daemon
+    mkdir /dev/com.evervolv.sudo 0755 root root
+    restorecon_recursive /dev/com.evervolv.sudo
