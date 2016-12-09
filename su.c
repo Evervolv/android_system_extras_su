@@ -846,7 +846,6 @@ int su_main(int argc, char *argv[], int need_client) {
 
     if (mkdir(REQUESTOR_CACHE_PATH, 0770)) {
         PLOGE("mkdir (%s)", REQUESTOR_CACHE_PATH);
-        deny(&ctx);
     }
 
     if (chown(REQUESTOR_CACHE_PATH, st.st_uid, st.st_gid)) {
